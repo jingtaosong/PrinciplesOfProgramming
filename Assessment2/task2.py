@@ -11,7 +11,7 @@ import os
 @st.cache_data
 def load_questions():
     questions = []
-    with open("questions.txt", "r", encoding="utf-8") as f:
+    with open(os.path.join(BASE_PATH, "questions.txt"), "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if not line:
@@ -61,7 +61,7 @@ def show_matrix():
             st.rerun()
     st.session_state.is_balloons = False
     load_data.clear()
-    df_data_all = load_data("results/quiz_results.csv")
+    df_data_all = load_data(os.path.join(BASE_PATH, "results/quiz_results.csv"))
     if len(df_data_all) < 5:
         st.error("Fewer than five participants, so the matrix cannot be displayed")
     else:
@@ -77,7 +77,7 @@ def show_chart():
     st.session_state.is_balloons = False
     load_data.clear()
     # Read all historical data
-    df_data_all = load_data("results/quiz_results.csv")
+    df_data_all = load_data(os.path.join(BASE_PATH, "results/quiz_results.csv"))
     if len(df_data_all) < 5:
         st.error("Fewer than five participants, so the charts cannot be displayed")
     else:
@@ -113,7 +113,7 @@ def crate_result_dataframe(score):
         row_record[f"Q{index + 1}"] = participant_answer
 
     # Save Results to CSV File
-    result_file = "results/quiz_results.csv"
+    result_file = os.path.join(BASE_PATH, "results/quiz_results.csv")
     row_record["Score"] = score
     row_record["Percentage"] = round((score / TOTAL_QUESTIONS) * 100, 2)
     save_dataframe = pd.DataFrame([row_record])
@@ -359,6 +359,7 @@ st.title("🍛 Malaysian Food Knowledge Quiz")
 st.markdown("### Discover Malaysian Food and Its Origins")
 st.divider()
 
+BASE_PATH = os.path.dirname(__file__)
 QUESTIONS = load_questions()
 TOTAL_QUESTIONS = len(QUESTIONS)
 
@@ -396,7 +397,7 @@ if not st.session_state.quiz_submitted:
 
         # Type B Question with Image
         if question_data["type"].upper() == "B" and question_data["photo"]:
-            st.image(question_data["photo"], width=350)
+            st.image(os.path.join(BASE_PATH, question_data["photo"]), width=350)
 
         # Restore Previous Answer
         previous_answer = st.session_state.answers[current_index]
