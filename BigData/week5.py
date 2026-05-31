@@ -2,7 +2,7 @@ import streamlit as st
 
 st.title("SONG JINGTAO")
 st.header("My first app")
-st.image("test_image.jpg", width=500)
+st.image(".\\test_image.jpg", width=500)
 st.text("My first text")
 st.text("My second text")
 st.text("My third text")
