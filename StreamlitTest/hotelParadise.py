@@ -4,7 +4,8 @@ from datetime import date
 import os
 
 st.title("Welcome to Paradise Hotel")
-image = Image.open(os.path.join(os.getcwd(), "ParadiseHotel.jpg"))
+# image = Image.open(os.path.join(os.getcwd(), "ParadiseHotel.jpg"))
+image = Image.open(os.path.join(os.path.dirname(__file__), "ParadiseHotel.jpg"))
 st.image(image, caption="Paradise Hotel", use_container_width=True)
 st.write("Enjoy your stay with us!")
 
